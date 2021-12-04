@@ -2,7 +2,7 @@
 
 namespace SabadinEstoqueApi.Dominio
 {
-    public class ProdutoModelo
+    public class Produto
     {
         public int Id { get; private set; }
 
@@ -20,20 +20,7 @@ namespace SabadinEstoqueApi.Dominio
 
         public SituacaoEnum Situacao { get; private set; }
 
-        public virtual CategoriaModelo Categoria { get; private set; }
-
-        public ProdutoModelo(int id, int categoriaId, string nome, int qtdEstoque, int qtdEstoqueMinimo, decimal valor, decimal valorPromocao, SituacaoEnum situacao, CategoriaModelo categoria)
-        {
-            Id = id;
-            CategoriaId = categoriaId;
-            Nome = nome;
-            QtdEstoque = qtdEstoque;
-            QtdEstoqueMinimo = qtdEstoqueMinimo;
-            Valor = valor;
-            ValorPromocao = valorPromocao;
-            Situacao = situacao;
-            Categoria = categoria;
-        }
+        public virtual Categoria Categoria { get; private set; }
 
         public void AtivarProduto(int idProduto)
         {

@@ -1,23 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SabadinEstoqueApi.Aplicacao;
 using SabadinEstoqueApi.Dominio;
+using System;
 
 namespace SabadinEstoqueApi.Controllers
 {
-    public class ProdutoController
+    [Route("api/[Controller]")]
+    [ApiController]
+    public class ProdutoController : ControllerBase
     {
-        [Route("api/[Controller]")]
-        [ApiController]
-        public class CategoriaController : ControllerBase
+        private readonly IProdutoAplicacao _produtoAplicacao;
+        public ProdutoController(IProdutoAplicacao produtoAplicacao)
         {
-            public ProdutoAplicacao ProdutoAplicacao = new();
+            _produtoAplicacao = produtoAplicacao ??
+            throw new ArgumentNullException(nameof(produtoAplicacao));
+        }
 
-            [HttpPost("CadastrarProduto")]
-        public IActionResult CadastrarProduto(ProdutoModelo produto)
-            {
-                return Ok();
-            }
-
+        [HttpPost("CadastrarProduto")]
+        public IActionResult CadastrarProduto([FromBody]Produto produto)
+        {
+            return Ok(_produtoAplicacao.CadastrarProduto(produto));
         }
     }
 }
