@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SabadinEstoqueApi.Aplicacao;
+using SabadinEstoqueApi.Dominio;
+using SabadinEstoqueApi.Infra;
 
 namespace SabadinEstoqueApi
 {
@@ -21,6 +23,7 @@ namespace SabadinEstoqueApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IProdutoAplicacao, ProdutoAplicacao>();
+            services.AddScoped<IProdutoModeloRepository, ProdutoRepositoryFake>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
