@@ -1,4 +1,5 @@
 ﻿using SabadinEstoqueApi.Dominio;
+using System.Collections.Generic;
 
 namespace SabadinEstoqueApi.Aplicacao
 {
@@ -10,5 +11,6 @@ namespace SabadinEstoqueApi.Aplicacao
         ProdutoModeloRetorno CadastrarProduto(Produto produto);
         ProdutoModeloRetorno EditarProduto(Produto produto);
         string DeletarProdutoPorId(int id);
+        IEnumerable<Produto> BuscarProdutos();
     }
 }

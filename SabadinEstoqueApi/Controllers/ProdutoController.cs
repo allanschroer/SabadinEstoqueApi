@@ -2,6 +2,7 @@
 using SabadinEstoqueApi.Aplicacao;
 using SabadinEstoqueApi.Dominio;
 using System;
+using System.Collections.Generic;
 
 namespace SabadinEstoqueApi.Controllers
 {
@@ -20,6 +21,12 @@ namespace SabadinEstoqueApi.Controllers
         public IActionResult CadastrarProduto([FromBody]Produto produto)
         {
             return Ok(_produtoAplicacao.CadastrarProduto(produto));
+        }
+
+        [HttpGet("ObterProdutos")]
+        public IEnumerable<Produto> ObterProdutos()
+        {
+            return _produtoAplicacao.BuscarProdutos();
         }
     }
 }

@@ -1,9 +1,17 @@
 ﻿using SabadinEstoqueApi.Dominio;
+using System.Collections.Generic;
 
 namespace SabadinEstoqueApi.Aplicacao
 {
     public class ProdutoAplicacao : IProdutoAplicacao
     {
+        private readonly IProdutoModeloRepository _produtoModeloRepository;
+
+        public ProdutoAplicacao(IProdutoModeloRepository produtoModeloRepository)
+        {
+            _produtoModeloRepository = produtoModeloRepository;
+        }
+
         public ProdutoModeloRetorno BuscarProdutoPorId(int id)
         {
             throw new System.NotImplementedException();
@@ -14,14 +22,15 @@ namespace SabadinEstoqueApi.Aplicacao
             throw new System.NotImplementedException();
         }
 
+        public IEnumerable<Produto> BuscarProdutos()
+        {
+            return _produtoModeloRepository.ObterTodosOsProdutos();
+        }
+
         public ProdutoModeloRetorno CadastrarProduto(Produto produto)
         {
-            return new ProdutoModeloRetorno
-            {
-                Produto = produto,
-                Sucesso = true,
-                Mensagem = "Inserido com sucesso."
-            };
+            _produtoModeloRepository.Cadastrar(produto);
+            return new ProdutoModeloRetorno { Produto = produto, Sucesso = true, Mensagem = "Inserido com sucesso." };
         }
 
         public string DeletarProdutoPorId(int id)
