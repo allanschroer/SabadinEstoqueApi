@@ -17,9 +17,9 @@ namespace SabadinEstoqueApi.Aplicacao
             throw new System.NotImplementedException();
         }
 
-        public ProdutoModeloRetorno BuscarProdutoPorNome(string nome)
+        public Produto BuscarProdutoPorNome(string nome)
         {
-            throw new System.NotImplementedException();
+            return _produtoModeloRepository.ObterProdutoPorNome(nome);
         }
 
         public IEnumerable<Produto> BuscarProdutos()
@@ -33,7 +33,7 @@ namespace SabadinEstoqueApi.Aplicacao
             return new ProdutoModeloRetorno { Produto = produto, Sucesso = true, Mensagem = "Inserido com sucesso." };
         }
 
-        public string DeletarProdutoPorId(int id)
+        public ProdutoModeloRetorno DeletarProdutoPorId(int id)
         {
             throw new System.NotImplementedException();
         }
