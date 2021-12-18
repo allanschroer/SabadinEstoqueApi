@@ -8,8 +8,6 @@ namespace SabadinEstoqueApi.Dominio
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
-        [JsonPropertyName("categoriaId")]
-        public int CategoriaId { get; set; }
         [JsonPropertyName("nome")]
         public string Nome { get; set; }
         [JsonPropertyName("qtdEstoque")]
@@ -22,8 +20,7 @@ namespace SabadinEstoqueApi.Dominio
         public decimal ValorPromocao { get; set; }
         [JsonPropertyName("situacao")]
         public SituacaoEnum Situacao { get; set; }
-
-        //public virtual Categoria Categoria { get; private set; }
-
+        [JsonPropertyName("categoria")]
+        public virtual Categoria Categoria { get; set; }
     }
 }

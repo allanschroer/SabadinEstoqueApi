@@ -14,7 +14,5 @@ namespace SabadinEstoqueApi.Dominio
         public string Nome { get; private set; }
 
         public SituacaoEnum Situacao { get; private set; }
-
-        public List<Produto> Produtos { get; private set; }
     }
 }

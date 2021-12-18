@@ -11,22 +11,14 @@ namespace SabadinEstoqueApi.Controllers
     public class ProdutoController : ControllerBase
     {
         private readonly IProdutoAplicacao _produtoAplicacao;
-        public ProdutoController(IProdutoAplicacao produtoAplicacao)
-        {
-            _produtoAplicacao = produtoAplicacao ??
+        public ProdutoController(IProdutoAplicacao produtoAplicacao) 
+            => _produtoAplicacao = produtoAplicacao ??
             throw new ArgumentNullException(nameof(produtoAplicacao));
-        }
 
         [HttpPost("CadastrarProduto")]
-        public IActionResult CadastrarProduto([FromBody]Produto produto)
-        {
-            return Ok(_produtoAplicacao.CadastrarProduto(produto));
-        }
+        public IActionResult CadastrarProduto([FromBody] Produto produto) => Ok(_produtoAplicacao.CadastrarProduto(produto));
 
         [HttpGet("ObterProdutos")]
-        public IEnumerable<Produto> ObterProdutos()
-        {
-            return _produtoAplicacao.BuscarProdutos();
-        }
+        public List<Produto> ObterProdutos() => _produtoAplicacao.BuscarProdutos();
     }
 }

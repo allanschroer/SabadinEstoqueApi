@@ -22,7 +22,7 @@ namespace SabadinEstoqueApi.Aplicacao
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Produto> BuscarProdutos()
+        public List<Produto> BuscarProdutos()
         {
             return _produtoModeloRepository.ObterTodosOsProdutos();
         }

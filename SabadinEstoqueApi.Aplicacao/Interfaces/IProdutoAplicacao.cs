@@ -11,6 +11,6 @@ namespace SabadinEstoqueApi.Aplicacao
         ProdutoModeloRetorno CadastrarProduto(Produto produto);
         ProdutoModeloRetorno EditarProduto(Produto produto);
         string DeletarProdutoPorId(int id);
-        IEnumerable<Produto> BuscarProdutos();
+        List<Produto> BuscarProdutos();
     }
 }
