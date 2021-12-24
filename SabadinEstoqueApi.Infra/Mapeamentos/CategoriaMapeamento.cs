@@ -9,9 +9,9 @@ namespace SabadinEstoqueApi.Infra
         public void Configure(EntityTypeBuilder<Categoria> builder)
         {
             builder.ToTable("categoria");
-            builder.Property(a => a.Id).HasColumnName("Id");
+            builder.HasKey(x => x.Id);
             builder.Property(a => a.Situacao).HasColumnName("situacao").HasColumnType("smallint");
-            builder.Property(a => a.Nome).HasColumnName("nome").HasMaxLength(200);
+            builder.Property(a => a.Nome).HasColumnName("nome").HasColumnType("varchar").HasMaxLength(200);
         }
     }
 }

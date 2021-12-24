@@ -10,7 +10,7 @@ namespace SabadinEstoqueApi.Infra
         {
             builder.ToTable("produto");
             builder.Property(a => a.Id).HasColumnName("id");
-            builder.Property(a => a.Nome).HasColumnName("nome").HasMaxLength(200);
+            builder.Property(a => a.Nome).HasColumnName("nome").HasColumnType("varchar").HasMaxLength(200);
             builder.Property(a => a.QtdEstoque).HasColumnName("qtdestoque").HasColumnType("int");
             builder.Property(a => a.QtdEstoqueMinimo).HasColumnName("qtdestoqueminimo").HasColumnType("int");
             builder.Property(a => a.Situacao).HasColumnName("situacao").HasColumnType("smallint");

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SabadinEstoqueApi.Dominio;
+using System;
 using System.Collections.Generic;
 
 namespace SabadinEstoqueApi.Infra
@@ -13,10 +14,18 @@ namespace SabadinEstoqueApi.Infra
             _context = context;
         }
 
-        public void Cadastrar(Produto produto)
+        public ResultadoOperacao Cadastrar(Produto produto)
         {
-            _context.Add(produto);
-            _context.SaveChanges();
+            try
+            {
+                _context.Add(produto);
+                _context.SaveChanges();
+                return new ResultadoOperacao { Sucesso = true, Mensagem = $"{produto.Nome} inserido com sucesso."};
+            }
+            catch(Exception e)
+            {
+                return new ResultadoOperacao { Mensagem = e.Message, Sucesso = false }; 
+            }
         }
 
         public List<Produto> ObterTodosOsProdutos()
