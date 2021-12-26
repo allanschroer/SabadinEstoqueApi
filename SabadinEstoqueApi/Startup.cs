@@ -24,7 +24,9 @@ namespace SabadinEstoqueApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IProdutoAplicacao, ProdutoAplicacao>();
-            services.AddScoped<IProdutoModeloRepository, ProdutoRepositorio>();
+            services.AddScoped<IProdutoModeloRepositorio, ProdutoRepositorio>();
+            services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
+            services.AddScoped<ICategoriaAplicacao, CategoriaAplicacao>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

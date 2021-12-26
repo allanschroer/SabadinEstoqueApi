@@ -8,17 +8,32 @@ using System.Threading.Tasks;
 
 namespace SabadinEstoqueApi.Infra
 {
-    public class CategoriaRepositorio
+    public class CategoriaRepositorio : ICategoriaRepositorio
     {
+        private readonly Context _context;
 
-        public void Cadastrar(Categoria produto)
+        public CategoriaRepositorio(Context context)
         {
-
+            _context = context;
         }
 
-        public List<Categoria> ObterTodosOsProdutos()
+        public ResultadoOperacao Cadastrar(Categoria categoria)
         {
-            return null;
+            try
+            {
+                _context.Add(categoria);
+                _context.SaveChanges();
+                return new ResultadoOperacao { Mensagem = "Inserido com sucesso.", Sucesso = true };
+            }
+            catch (Exception e)
+            {
+                return new ResultadoOperacao { Sucesso = false, Mensagem = e.Message };
+            }
+        }
+
+        public List<Categoria> ObterTodasAsCategorias()
+        {
+            return _context.Categorias.ToList();
         }
     }
 }

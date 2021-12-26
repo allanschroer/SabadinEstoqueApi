@@ -2,12 +2,13 @@
 using SabadinEstoqueApi.Dominio;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SabadinEstoqueApi.Infra
 {
-    public class ProdutoRepositorio :  IProdutoModeloRepository
+    public class ProdutoRepositorio :  IProdutoModeloRepositorio
     {
-        private Context _context;
+        private readonly Context _context;
 
         public ProdutoRepositorio(Context context)
         {
@@ -18,7 +19,7 @@ namespace SabadinEstoqueApi.Infra
         {
             try
             {
-                _context.Add(produto);
+                _context.Produtos.Add(produto);
                 _context.SaveChanges();
                 return new ResultadoOperacao { Sucesso = true, Mensagem = $"{produto.Nome} inserido com sucesso."};
             }
@@ -28,9 +29,21 @@ namespace SabadinEstoqueApi.Infra
             }
         }
 
+        public Produto BuscarPorId(int id)
+        {
+            try
+            {
+                return _context.Produtos.Where(x => x.Id == id).FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         public List<Produto> ObterTodosOsProdutos()
         {
-            return null; 
+            return _context.Produtos.ToList();
         }
     }
 }

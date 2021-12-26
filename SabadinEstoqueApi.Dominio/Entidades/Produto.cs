@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SabadinEstoqueApi.Dominio.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace SabadinEstoqueApi.Dominio
@@ -20,7 +21,8 @@ namespace SabadinEstoqueApi.Dominio
         public decimal ValorPromocao { get; set; }
         [JsonPropertyName("situacao")]
         public SituacaoEnum Situacao { get; set; }
-        [JsonPropertyName("categoria")]
+        [JsonPropertyName("idcategoria")]
+        public int IdCategoria { get; set; }
         public virtual Categoria Categoria { get; set; }
     }
 }

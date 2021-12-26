@@ -8,7 +8,7 @@ namespace SabadinEstoqueApi.Aplicacao
     {
         ProdutoModeloRetorno BuscarProdutoPorNome(string nome);
         ProdutoModeloRetorno BuscarProdutoPorId(int id);
-        ProdutoModeloRetorno CadastrarProduto(Produto produto);
+        ResultadoOperacao CadastrarProduto(Produto produto);
         ProdutoModeloRetorno EditarProduto(Produto produto);
         string DeletarProdutoPorId(int id);
         List<Produto> BuscarProdutos();

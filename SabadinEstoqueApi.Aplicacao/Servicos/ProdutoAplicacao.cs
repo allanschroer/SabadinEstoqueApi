@@ -1,20 +1,35 @@
 ﻿using SabadinEstoqueApi.Dominio;
+using System;
 using System.Collections.Generic;
 
 namespace SabadinEstoqueApi.Aplicacao
 {
     public class ProdutoAplicacao : IProdutoAplicacao
     {
-        private readonly IProdutoModeloRepository _produtoModeloRepository;
+        private readonly IProdutoModeloRepositorio _produtoModeloRepositorio;
 
-        public ProdutoAplicacao(IProdutoModeloRepository produtoModeloRepository)
+        public ProdutoAplicacao(IProdutoModeloRepositorio produtoModeloRepository)
         {
-            _produtoModeloRepository = produtoModeloRepository;
+            _produtoModeloRepositorio = produtoModeloRepository;
         }
 
         public ProdutoModeloRetorno BuscarProdutoPorId(int id)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                return new ProdutoModeloRetorno
+                {
+                    Produto = _produtoModeloRepositorio.BuscarPorId(id)
+                };
+            }
+            catch (Exception e)
+            {
+                return new ProdutoModeloRetorno
+                {
+                    Mensagem = e.Message,
+                    Sucesso = false
+                };
+            }
         }
 
         public ProdutoModeloRetorno BuscarProdutoPorNome(string nome)
@@ -24,13 +39,12 @@ namespace SabadinEstoqueApi.Aplicacao
 
         public List<Produto> BuscarProdutos()
         {
-            return _produtoModeloRepository.ObterTodosOsProdutos();
+            return _produtoModeloRepositorio.ObterTodosOsProdutos();
         }
 
-        public ProdutoModeloRetorno CadastrarProduto(Produto produto)
+        public ResultadoOperacao CadastrarProduto(Produto produto)
         {
-            _produtoModeloRepository.Cadastrar(produto);
-            return new ProdutoModeloRetorno { Produto = produto, Sucesso = true, Mensagem = "Inserido com sucesso." };
+            return _produtoModeloRepositorio.Cadastrar(produto);
         }
 
         public string DeletarProdutoPorId(int id)
