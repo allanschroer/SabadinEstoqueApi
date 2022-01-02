@@ -8,6 +8,5 @@ namespace SabadinEstoqueApi.Aplicacao
         public Produto Produto { get; set; }
         public bool Sucesso { get; set; }
         public string Mensagem { get; set; }
-        public Exception Excecao { get; set; }
     }
 }

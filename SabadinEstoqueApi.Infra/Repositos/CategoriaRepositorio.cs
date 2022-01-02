@@ -25,15 +25,22 @@ namespace SabadinEstoqueApi.Infra
                 _context.SaveChanges();
                 return new ResultadoOperacao { Mensagem = "Inserido com sucesso.", Sucesso = true };
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return new ResultadoOperacao { Sucesso = false, Mensagem = e.Message };
+                return new ResultadoOperacao { Sucesso = false, Mensagem = ex.Message };
             }
         }
 
         public List<Categoria> ObterTodasAsCategorias()
         {
-            return _context.Categorias.ToList();
+            try
+            {
+                return _context.Categorias.ToList();
+            }
+            catch
+            {
+                return new List<Categoria>();
+            }
         }
     }
 }

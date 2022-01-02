@@ -18,7 +18,8 @@ namespace SabadinEstoqueApi.Aplicacao
 
         public List<Categoria> ObterTodas()
         {
-            return _categoriaRepositorio.ObterTodasAsCategorias().ToList();
+            var categorias = _categoriaRepositorio.ObterTodasAsCategorias().ToList();
+
         }
     }
 }

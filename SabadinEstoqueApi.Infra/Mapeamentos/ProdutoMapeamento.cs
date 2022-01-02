@@ -9,6 +9,9 @@ namespace SabadinEstoqueApi.Infra
         public void Configure(EntityTypeBuilder<Produto> builder)
         {
             builder.ToTable("produtos");
+
+            builder.HasKey(a => a.Id);
+
             builder.Property(a => a.Id).HasColumnName("id");
             builder.Property(a => a.Nome).HasColumnName("nome").HasColumnType("varchar").HasMaxLength(200);
             builder.Property(a => a.QtdEstoque).HasColumnName("qtdestoque").HasColumnType("int");
@@ -16,7 +19,8 @@ namespace SabadinEstoqueApi.Infra
             builder.Property(a => a.Situacao).HasColumnName("situacao").HasColumnType("smallint");
             builder.Property(a => a.Valor).HasColumnName("valor").HasColumnType("decimal");
             builder.Property(a => a.ValorPromocao).HasColumnName("valorpromocao").HasColumnType("decimal");
-            builder.HasOne(a => a.Categoria).WithMany().HasForeignKey(a => a.IdCategoria);
+
+            builder.HasOne(a => a.Categoria).WithMany().HasForeignKey("idcategoria");
         }
     }
 }

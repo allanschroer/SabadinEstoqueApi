@@ -17,17 +17,15 @@ namespace SabadinEstoqueApi.Aplicacao
         {
             try
             {
-                return new ProdutoModeloRetorno
-                {
-                    Produto = _produtoModeloRepositorio.BuscarPorId(id)
-                };
+                return ConverterRetorno(_produtoModeloRepositorio.BuscarPorId(id));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 return new ProdutoModeloRetorno
                 {
-                    Mensagem = e.Message,
-                    Sucesso = false
+                    Produto = new Produto(),
+                    Sucesso = false,
+                    Mensagem = ex.Message
                 };
             }
         }
@@ -55,6 +53,15 @@ namespace SabadinEstoqueApi.Aplicacao
         public ProdutoModeloRetorno EditarProduto(Produto produto)
         {
             throw new System.NotImplementedException();
+        }
+
+        private static ProdutoModeloRetorno ConverterRetorno(Produto produto)
+        {
+            return new ProdutoModeloRetorno
+            {
+                Produto = produto,
+                Sucesso = true
+            };
         }
     }
 }
