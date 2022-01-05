@@ -28,6 +28,15 @@ namespace SabadinEstoqueApi
             services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
             services.AddScoped<ICategoriaAplicacao, CategoriaAplicacao>();
             services.AddControllers();
+
+            services.AddMvc(setupAction =>
+            {
+                setupAction.EnableEndpointRouting = false;
+            }).AddJsonOptions(jsonOptions =>
+            {
+                jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null;
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SabadinEstoqueApi", Version = "v1" });
@@ -44,7 +53,6 @@ namespace SabadinEstoqueApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SabadinEstoqueApi v1"));
             }
-
             app.UseHttpsRedirection();
 
             app.UseCors();

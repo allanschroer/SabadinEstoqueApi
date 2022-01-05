@@ -14,6 +14,7 @@ namespace SabadinEstoqueApi.Dominio
         public decimal Valor { get; set; }
         public decimal ValorPromocao { get; set; }
         public SituacaoEnum Situacao { get; set; }
-        public Categoria Categoria { get; set; }
+        public int IdCategoria { get; set; }
+        public virtual Categoria Categoria { get; set; }
     }
 }

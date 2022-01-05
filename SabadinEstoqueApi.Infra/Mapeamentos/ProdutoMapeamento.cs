@@ -19,8 +19,9 @@ namespace SabadinEstoqueApi.Infra
             builder.Property(a => a.Situacao).HasColumnName("situacao").HasColumnType("smallint");
             builder.Property(a => a.Valor).HasColumnName("valor").HasColumnType("decimal");
             builder.Property(a => a.ValorPromocao).HasColumnName("valorpromocao").HasColumnType("decimal");
+            builder.Property(a => a.IdCategoria).HasColumnName("idcategoria").HasColumnType("int");
 
-            builder.HasOne(a => a.Categoria).WithMany().HasForeignKey("idcategoria");
+            builder.HasOne(a => a.Categoria).WithMany().HasForeignKey(a => a.IdCategoria);
         }
     }
 }

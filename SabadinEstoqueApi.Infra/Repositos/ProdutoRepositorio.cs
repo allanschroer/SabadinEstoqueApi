@@ -43,7 +43,7 @@ namespace SabadinEstoqueApi.Infra
 
         public List<Produto> ObterTodosOsProdutos()
         {
-            return _context.Produtos.ToList();
+            return _context.Produtos.Include(a => a.Categoria).ToList();
         }
     }
 }
