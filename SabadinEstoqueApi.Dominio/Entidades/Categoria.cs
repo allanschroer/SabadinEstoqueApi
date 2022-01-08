@@ -1,6 +1,4 @@
-﻿using SabadinEstoqueApi.Dominio.Enums;
-
-namespace SabadinEstoqueApi.Dominio
+﻿namespace SabadinEstoqueApi.Dominio
 {
     public class Categoria
     {

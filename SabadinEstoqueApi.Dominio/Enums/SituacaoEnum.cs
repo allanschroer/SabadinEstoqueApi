@@ -1,4 +1,4 @@
-﻿namespace SabadinEstoqueApi.Dominio.Enums
+﻿namespace SabadinEstoqueApi.Dominio
 {
     public enum SituacaoEnum
     {

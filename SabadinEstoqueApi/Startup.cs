@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,14 +30,27 @@ namespace SabadinEstoqueApi
             services.AddScoped<ICategoriaAplicacao, CategoriaAplicacao>();
             services.AddControllers();
 
+            //Igorar camel case
             services.AddMvc(setupAction =>
             {
                 setupAction.EnableEndpointRouting = false;
             }).AddJsonOptions(jsonOptions =>
             {
                 jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null;
+                jsonOptions.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
             });
 
+            //AutoMapper das calsses
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProdutoModelo, Produto>();
+                cfg.CreateMap<Produto, ProdutoModelo>();
+            });
+
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
+
+            //SWAGGER
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SabadinEstoqueApi", Version = "v1" });

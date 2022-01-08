@@ -17,8 +17,8 @@ namespace SabadinEstoqueApi.Controllers
             throw new ArgumentNullException(nameof(produtoAplicacao));
 
         [HttpPost("CadastrarProduto")]
-        public IActionResult CadastrarProduto(Produto produto) 
-            => Ok(_produtoAplicacao.CadastrarProduto(produto));
+        public IActionResult CadastrarProduto(ProdutoModelo produtoModelo) 
+            => Ok(_produtoAplicacao.CadastrarProduto(produtoModelo));
 
         [HttpGet("ObterProdutos")]
         public List<Produto> ObterProdutos() 
@@ -27,5 +27,9 @@ namespace SabadinEstoqueApi.Controllers
         [HttpGet("ObterPorId")]
         public ProdutoModeloRetorno ObterPorId(int id)
             => _produtoAplicacao.BuscarProdutoPorId(id);
+
+        [HttpGet("DeletarProduto")]
+        public ResultadoOperacao DeletarProduto(int id)
+            => _produtoAplicacao.DeletarProdutoPorId(id);
     }
 }

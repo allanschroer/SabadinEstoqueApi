@@ -1,4 +1,5 @@
-﻿using SabadinEstoqueApi.Dominio;
+﻿using AutoMapper;
+using SabadinEstoqueApi.Dominio;
 using System;
 using System.Collections.Generic;
 
@@ -7,10 +8,12 @@ namespace SabadinEstoqueApi.Aplicacao
     public class ProdutoAplicacao : IProdutoAplicacao
     {
         private readonly IProdutoModeloRepositorio _produtoModeloRepositorio;
+        private readonly IMapper _mapper;
 
-        public ProdutoAplicacao(IProdutoModeloRepositorio produtoModeloRepository)
+        public ProdutoAplicacao(IProdutoModeloRepositorio produtoModeloRepository, IMapper mapper)
         {
             _produtoModeloRepositorio = produtoModeloRepository;
+            _mapper = mapper;
         }
 
         public ProdutoModeloRetorno BuscarProdutoPorId(int id)
@@ -23,7 +26,7 @@ namespace SabadinEstoqueApi.Aplicacao
             {
                 return new ProdutoModeloRetorno
                 {
-                    Produto = new Produto(),
+                    Produto = new ProdutoModelo(),
                     Sucesso = false,
                     Mensagem = ex.Message
                 };
@@ -40,14 +43,28 @@ namespace SabadinEstoqueApi.Aplicacao
             return _produtoModeloRepositorio.ObterTodosOsProdutos();
         }
 
-        public ResultadoOperacao CadastrarProduto(Produto produto)
+        public ResultadoOperacao CadastrarProduto(ProdutoModelo produtoModelo)
         {
+            var produto = _mapper.Map<Produto>(produtoModelo);
             return _produtoModeloRepositorio.Cadastrar(produto);
         }
 
-        public string DeletarProdutoPorId(int id)
+        public ResultadoOperacao DeletarProdutoPorId(int id)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var produto = _produtoModeloRepositorio.BuscarPorId(id);
+                ValidarEntidadeNull(produto);
+                return _produtoModeloRepositorio.DeletarProduto(produto);
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoOperacao
+                {
+                    Mensagem = ex.Message,
+                    Sucesso = false
+                };
+            }
         }
 
         public ProdutoModeloRetorno EditarProduto(Produto produto)
@@ -55,13 +72,21 @@ namespace SabadinEstoqueApi.Aplicacao
             throw new System.NotImplementedException();
         }
 
-        private static ProdutoModeloRetorno ConverterRetorno(Produto produto)
+        private ProdutoModeloRetorno ConverterRetorno(Produto produto)
         {
             return new ProdutoModeloRetorno
             {
-                Produto = produto,
+                Produto = _mapper.Map<ProdutoModelo>(produto),
                 Sucesso = true
             };
+        }
+
+        private static T ValidarEntidadeNull<T>(T entidade) where T : class
+        {
+            if (entidade != null)
+                return entidade;
+
+            throw new Exception("Entidade não existe.");
         }
     }
 }

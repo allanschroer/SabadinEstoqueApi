@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SabadinEstoqueApi.Infra
 {
-    public class ProdutoRepositorio :  IProdutoModeloRepositorio
+    public class ProdutoRepositorio : IProdutoModeloRepositorio
     {
         private readonly Context _context;
 
@@ -21,29 +21,33 @@ namespace SabadinEstoqueApi.Infra
             {
                 _context.Produtos.Add(produto);
                 _context.SaveChanges();
-                return new ResultadoOperacao { Sucesso = true, Mensagem = $"{produto.Nome} inserido com sucesso."};
+                return new ResultadoOperacao { Sucesso = true, Mensagem = $"{produto.Nome} inserido com sucesso." };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return new ResultadoOperacao { Mensagem = e.Message, Sucesso = false }; 
+                return new ResultadoOperacao { Mensagem = e.Message, Sucesso = false };
             }
         }
 
         public Produto BuscarPorId(int id)
         {
-            try
-            {
-                return _context.Produtos.Where(x => x.Id == id).FirstOrDefault();
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+            return _context.Produtos.Where(x => x.Id == id).FirstOrDefault();
         }
 
         public List<Produto> ObterTodosOsProdutos()
         {
             return _context.Produtos.Include(a => a.Categoria).ToList();
+        }
+
+        public ResultadoOperacao DeletarProduto(Produto produto)
+        {
+            _context.Produtos.Remove(produto);
+            _context.SaveChanges();
+            return new ResultadoOperacao
+            {
+                Mensagem = "Removido com sucesso.",
+                Sucesso = true
+            };
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using SabadinEstoqueApi.Dominio.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
-
-namespace SabadinEstoqueApi.Dominio
+﻿namespace SabadinEstoqueApi.Dominio
 {
     public class Produto
     {
