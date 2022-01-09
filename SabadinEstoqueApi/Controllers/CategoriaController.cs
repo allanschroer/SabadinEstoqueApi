@@ -18,10 +18,16 @@ namespace SabadinEstoqueApi.Controllers
             => _categoriaAplicacao = categoriaAplicacao ??
             throw new ArgumentNullException(nameof(categoriaAplicacao));
 
-        [HttpGet]
-        public IEnumerable<Categoria> ObterCategorias()
-        {
-            return _categoriaAplicacao.ObterTodas();
-        }
+        [HttpGet, Route("ObterTodas")]
+        public IEnumerable<Categoria> ObterCategorias() 
+            => _categoriaAplicacao.ObterTodas();
+
+        [HttpPost, Route("Cadastrar")]
+        public ResultadoOperacao CadastrarCategoria(CategoriaModelo categoriaModelo) 
+            => _categoriaAplicacao.Cadastrar(categoriaModelo);
+
+        [HttpPost, Route("Atualizar")]
+        public ResultadoOperacao<Categoria> Atualizar(CategoriaModelo categoriaModelo)
+            => _categoriaAplicacao.Atualizar(categoriaModelo);
     }
 }

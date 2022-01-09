@@ -45,6 +45,8 @@ namespace SabadinEstoqueApi
             {
                 cfg.CreateMap<ProdutoModelo, Produto>();
                 cfg.CreateMap<Produto, ProdutoModelo>();
+                cfg.CreateMap<Categoria, CategoriaModelo>();
+                cfg.CreateMap<CategoriaModelo,Categoria>();
             });
 
             IMapper mapper = config.CreateMapper();

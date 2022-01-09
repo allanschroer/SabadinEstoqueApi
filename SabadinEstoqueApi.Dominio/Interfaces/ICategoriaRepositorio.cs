@@ -10,5 +10,6 @@ namespace SabadinEstoqueApi.Dominio
     {
         public ResultadoOperacao Cadastrar(Categoria categoria);
         public List<Categoria> ObterTodasAsCategorias();
+        public ResultadoOperacao<Categoria> Atualizar(Categoria categoria);
     }
 }
