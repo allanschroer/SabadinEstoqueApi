@@ -1,20 +1,15 @@
-﻿using SabadinEstoqueApi.Dominio.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SabadinEstoqueApi.Dominio
+﻿namespace SabadinEstoqueApi.Dominio
 {
     public class Categoria
     {
-        public int Id { get; private set; }
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public SituacaoEnum Situacao { get; set; }
 
-        public string Nome { get; private set; }
-
-        public SituacaoEnum Situacao { get; private set; }
-
-        public List<Produto> Produtos { get; private set; }
+        public void Atualizar(string nome, SituacaoEnum situacao)
+        {
+            Nome = nome;
+            Situacao = situacao;
+        }
     }
 }
