@@ -49,5 +49,10 @@ namespace SabadinEstoqueApi.Infra
                 Sucesso = true
             };
         }
+
+        public List<Produto> BuscarPorNome(string nome)
+        {
+            return _context.Produtos.Where(a => a.Nome.Contains(nome)).ToList();
+        }
     }
 }

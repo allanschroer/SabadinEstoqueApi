@@ -8,5 +8,6 @@ namespace SabadinEstoqueApi.Dominio
         List<Produto> ObterTodosOsProdutos();
         Produto BuscarPorId(int id);
         ResultadoOperacao DeletarProduto(Produto produto);
+        List<Produto> BuscarPorNome(string nome);
     }
 }

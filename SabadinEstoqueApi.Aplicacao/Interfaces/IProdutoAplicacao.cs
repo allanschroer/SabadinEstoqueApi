@@ -6,7 +6,7 @@ namespace SabadinEstoqueApi.Aplicacao
     [Service]
     public interface IProdutoAplicacao
     {
-        ProdutoModeloRetorno BuscarProdutoPorNome(string nome);
+        List<Produto> BuscarProdutoPorNome(string nome);
         ProdutoModeloRetorno BuscarProdutoPorId(int id);
         ResultadoOperacao CadastrarProduto(ProdutoModelo produto);
         ProdutoModeloRetorno EditarProduto(Produto produto);

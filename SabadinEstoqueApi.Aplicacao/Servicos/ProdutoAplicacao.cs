@@ -33,11 +33,6 @@ namespace SabadinEstoqueApi.Aplicacao
             }
         }
 
-        public Produto BuscarProdutoPorNome(string nome)
-        {
-            return _produtoModeloRepository.ObterProdutoPorNome(nome);
-        }
-
         public List<Produto> BuscarProdutos()
         {
             return _produtoModeloRepositorio.ObterTodosOsProdutos();
@@ -87,6 +82,18 @@ namespace SabadinEstoqueApi.Aplicacao
                 return entidade;
 
             throw new Exception("Entidade não existe.");
+        }
+
+        public List<Produto> BuscarProdutoPorNome(string nome)
+        {
+            try
+            {
+                return _produtoModeloRepositorio.BuscarPorNome(nome);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
