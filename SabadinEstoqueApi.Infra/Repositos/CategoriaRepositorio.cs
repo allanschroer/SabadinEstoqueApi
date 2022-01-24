@@ -33,16 +33,21 @@ namespace SabadinEstoqueApi.Infra
             return new ResultadoOperacao { Mensagem = "Inserido com sucesso.", Sucesso = true };
         }
 
+        public ResultadoOperacao Deletar(Categoria categoria)
+        {
+            _context.Remove(categoria);
+            _context.SaveChanges();
+            return new ResultadoOperacao { Mensagem = "Removido com sucesso.", Sucesso = true };
+        }
+
         public List<Categoria> ObterTodasAsCategorias()
         {
-            try
-            {
-                return _context.Categorias.ToList();
-            }
-            catch
-            {
-                return new List<Categoria>();
-            }
+            return _context.Categorias.ToList();
+        }
+
+        public Categoria BuscarPorId(int idCategoria)
+        {
+            return _context.Set<Categoria>().Where(a => a.Id == idCategoria).FirstOrDefault();
         }
     }
 }

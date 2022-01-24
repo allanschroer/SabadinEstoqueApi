@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SabadinEstoqueApi.Aplicacao;
 using SabadinEstoqueApi.Dominio;
@@ -24,6 +25,9 @@ namespace SabadinEstoqueApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var serviceProvider = services.BuildServiceProvider();
+            var logger = serviceProvider.GetService<ILogger<CategoriaAplicacao>>();
+            services.AddSingleton(typeof(ILogger), logger);
             services.AddScoped<IProdutoAplicacao, ProdutoAplicacao>();
             services.AddScoped<IProdutoModeloRepositorio, ProdutoRepositorio>();
             services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();

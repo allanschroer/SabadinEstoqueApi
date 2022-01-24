@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace SabadinEstoqueApi.Aplicacao
 {
-    [Service]
     public interface ICategoriaAplicacao
     {
         public List<Categoria> ObterTodas();

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using SabadinEstoqueApi.Dominio;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,13 @@ namespace SabadinEstoqueApi.Aplicacao
     {
         private readonly IProdutoModeloRepositorio _produtoModeloRepositorio;
         private readonly IMapper _mapper;
+        private readonly ILogger _logger;
 
-        public ProdutoAplicacao(IProdutoModeloRepositorio produtoModeloRepository, IMapper mapper)
+        public ProdutoAplicacao(IProdutoModeloRepositorio produtoModeloRepository, IMapper mapper, ILogger logger)
         {
             _produtoModeloRepositorio = produtoModeloRepository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public ProdutoModeloRetorno BuscarProdutoPorId(int id)
@@ -24,11 +27,12 @@ namespace SabadinEstoqueApi.Aplicacao
             }
             catch (Exception ex)
             {
+                _logger.Log(LogLevel.Error, ex.Message);
                 return new ProdutoModeloRetorno
                 {
                     Produto = new ProdutoModelo(),
                     Sucesso = false,
-                    Mensagem = ex.Message
+                    Mensagem = "Nao foi possivel obter o produto."
                 };
             }
         }

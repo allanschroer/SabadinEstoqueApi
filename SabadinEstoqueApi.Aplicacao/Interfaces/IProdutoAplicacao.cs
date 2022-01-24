@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace SabadinEstoqueApi.Aplicacao
 {
-    [Service]
     public interface IProdutoAplicacao
     {
         List<Produto> BuscarProdutoPorNome(string nome);
