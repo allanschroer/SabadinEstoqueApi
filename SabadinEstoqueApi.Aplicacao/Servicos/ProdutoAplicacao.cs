@@ -10,42 +10,62 @@ namespace SabadinEstoqueApi.Aplicacao
     {
         private readonly IProdutoModeloRepositorio _produtoModeloRepositorio;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
 
-        public ProdutoAplicacao(IProdutoModeloRepositorio produtoModeloRepository, IMapper mapper, ILogger logger)
+        public ProdutoAplicacao(IProdutoModeloRepositorio produtoModeloRepository, IMapper mapper)
         {
             _produtoModeloRepositorio = produtoModeloRepository;
             _mapper = mapper;
-            _logger = logger;
         }
 
-        public ProdutoModeloRetorno BuscarProdutoPorId(int id)
+        public ResultadoOperacao<ProdutoModelo> BuscarProdutoPorId(int id)
         {
             try
             {
-                return ConverterRetorno(_produtoModeloRepositorio.BuscarPorId(id));
+                var produtos = _mapper.Map(_produtoModeloRepositorio.BuscarPorId(id), new ProdutoModelo());
+
+                return new ResultadoOperacao<ProdutoModelo>
+                {
+                    ModeloRetorno = produtos,
+                    Sucesso = true
+                };
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, ex.Message);
-                return new ProdutoModeloRetorno
+                return new ResultadoOperacao<ProdutoModelo>
                 {
-                    Produto = new ProdutoModelo(),
                     Sucesso = false,
                     Mensagem = "Nao foi possivel obter o produto."
                 };
             }
         }
 
-        public List<Produto> BuscarProdutos()
+        public ResultadoOperacao<List<ProdutoModelo>> BuscarProdutos()
         {
-            return _produtoModeloRepositorio.ObterTodosOsProdutos();
+            try
+            {
+                var produtos = _mapper.Map(_produtoModeloRepositorio.ObterTodosOsProdutos(), new List<ProdutoModelo>());
+
+                return new ResultadoOperacao<List<ProdutoModelo>>().CriarSucesso(produtos);
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoOperacao<List<ProdutoModelo>>().CriarFalha("Nao foi possivel obter o produto.");
+            }
+
         }
 
         public ResultadoOperacao CadastrarProduto(ProdutoModelo produtoModelo)
         {
-            var produto = _mapper.Map<Produto>(produtoModelo);
-            return _produtoModeloRepositorio.Cadastrar(produto);
+            try
+            {
+                var produto = _mapper.Map<Produto>(produtoModelo);
+                _produtoModeloRepositorio.Cadastrar(produto);
+                return new ResultadoOperacao().CriarSucesso();
+            }
+            catch (Exception ex)
+            {
+                return new ResultadoOperacao().CriarFalha("Nao foi possivel cadastrar o produto.");
+            }
         }
 
         public ResultadoOperacao DeletarProdutoPorId(int id)
@@ -54,30 +74,19 @@ namespace SabadinEstoqueApi.Aplicacao
             {
                 var produto = _produtoModeloRepositorio.BuscarPorId(id);
                 ValidarEntidadeNull(produto);
-                return _produtoModeloRepositorio.DeletarProduto(produto);
+                _produtoModeloRepositorio.DeletarProduto(produto);
+
+                return new ResultadoOperacao().CriarSucesso();
             }
             catch (Exception ex)
             {
-                return new ResultadoOperacao
-                {
-                    Mensagem = ex.Message,
-                    Sucesso = false
-                };
+                return new ResultadoOperacao().CriarFalha("Nao foi possivel deletar o produto.");
             }
         }
 
-        public ProdutoModeloRetorno EditarProduto(Produto produto)
+        public ResultadoOperacao EditarProduto(Produto produto)
         {
-            throw new System.NotImplementedException();
-        }
-
-        private ProdutoModeloRetorno ConverterRetorno(Produto produto)
-        {
-            return new ProdutoModeloRetorno
-            {
-                Produto = _mapper.Map<ProdutoModelo>(produto),
-                Sucesso = true
-            };
+            throw new NotImplementedException();
         }
 
         private static T ValidarEntidadeNull<T>(T entidade) where T : class
@@ -85,18 +94,20 @@ namespace SabadinEstoqueApi.Aplicacao
             if (entidade != null)
                 return entidade;
 
-            throw new Exception("Entidade não existe.");
+            throw new ArgumentException();
         }
 
-        public List<Produto> BuscarProdutoPorNome(string nome)
+        public ResultadoOperacao<List<ProdutoModelo>> BuscarProdutoPorNome(string nome)
         {
             try
             {
-                return _produtoModeloRepositorio.BuscarPorNome(nome);
+                var produtos = _mapper.Map(_produtoModeloRepositorio.BuscarPorNome(nome), new List<ProdutoModelo>());
+                
+                return new ResultadoOperacao<List<ProdutoModelo>>().CriarSucesso(produtos);
             }
             catch
             {
-                return null;
+                return new ResultadoOperacao<List<ProdutoModelo>>().CriarFalha("Nao foi possivel fazer a consulta.");
             }
         }
     }

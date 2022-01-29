@@ -13,31 +13,23 @@ namespace SabadinEstoqueApi.Infra
             _context = context;
         }
 
-        public ResultadoOperacao<Categoria> Atualizar(Categoria categoria)
+        public void Atualizar(Categoria categoria)
         {
             var consulta = _context.Categorias.Where(a => a.Id == categoria.Id).FirstOrDefault();
             consulta.Atualizar(categoria.Nome, categoria.Situacao);
             _context.SaveChanges();
-            return new ResultadoOperacao<Categoria>
-            {
-                Mensagem = "Atualizado com sucesso.",
-                Sucesso = true,
-                ObjetoRetorno = consulta
-            };
         }
 
-        public ResultadoOperacao Cadastrar(Categoria categoria)
+        public void Cadastrar(Categoria categoria)
         {
             _context.Add(categoria);
             _context.SaveChanges();
-            return new ResultadoOperacao { Mensagem = "Inserido com sucesso.", Sucesso = true };
         }
 
-        public ResultadoOperacao Deletar(Categoria categoria)
+        public void Deletar(Categoria categoria)
         {
             _context.Remove(categoria);
             _context.SaveChanges();
-            return new ResultadoOperacao { Mensagem = "Removido com sucesso.", Sucesso = true };
         }
 
         public List<Categoria> ObterTodasAsCategorias()

@@ -25,9 +25,6 @@ namespace SabadinEstoqueApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var serviceProvider = services.BuildServiceProvider();
-            var logger = serviceProvider.GetService<ILogger<CategoriaAplicacao>>();
-            services.AddSingleton(typeof(ILogger), logger);
             services.AddScoped<IProdutoAplicacao, ProdutoAplicacao>();
             services.AddScoped<IProdutoModeloRepositorio, ProdutoRepositorio>();
             services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();

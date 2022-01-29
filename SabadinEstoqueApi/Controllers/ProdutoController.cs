@@ -25,11 +25,11 @@ namespace SabadinEstoqueApi.Controllers
             => _produtoAplicacao.BuscarProdutos();
 
         [HttpGet("ObterPorId")]
-        public ProdutoModeloRetorno ObterPorId(int id)
+        public Aplicacao.ResultadoOperacao ObterPorId(int id)
             => _produtoAplicacao.BuscarProdutoPorId(id);
 
         [HttpGet("DeletarProduto")]
-        public ResultadoOperacao DeletarProduto(int id)
+        public Dominio.ResultadoOperacao DeletarProduto(int id)
             => _produtoAplicacao.DeletarProdutoPorId(id);
     }
 }

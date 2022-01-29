@@ -5,11 +5,11 @@ namespace SabadinEstoqueApi.Aplicacao
 {
     public interface IProdutoAplicacao
     {
-        List<Produto> BuscarProdutoPorNome(string nome);
-        ProdutoModeloRetorno BuscarProdutoPorId(int id);
+        ResultadoOperacao<List<ProdutoModelo>> BuscarProdutoPorNome(string nome);
+        ResultadoOperacao<ProdutoModelo> BuscarProdutoPorId(int id);
         ResultadoOperacao CadastrarProduto(ProdutoModelo produto);
-        ProdutoModeloRetorno EditarProduto(Produto produto);
+        ResultadoOperacao EditarProduto(Produto produto);
         ResultadoOperacao DeletarProdutoPorId(int id);
-        List<Produto> BuscarProdutos();
+        ResultadoOperacao<List<ProdutoModelo>> BuscarProdutos();
     }
 }

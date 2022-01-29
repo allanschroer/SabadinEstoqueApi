@@ -8,10 +8,10 @@ namespace SabadinEstoqueApi.Dominio
 {
     public interface ICategoriaRepositorio
     {
-        public ResultadoOperacao Cadastrar(Categoria categoria);
+        public void Cadastrar(Categoria categoria);
         public List<Categoria> ObterTodasAsCategorias();
-        public ResultadoOperacao<Categoria> Atualizar(Categoria categoria);
-        public ResultadoOperacao Deletar(Categoria categoria);
+        public void Atualizar(Categoria categoria);
+        public void Deletar(Categoria categoria);
         public Categoria BuscarPorId(int idCategoria);
     }
 }

@@ -11,13 +11,11 @@ namespace SabadinEstoqueApi.Aplicacao
     {
         private readonly ICategoriaRepositorio _categoriaRepositorio;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
 
-        public CategoriaAplicacao(ICategoriaRepositorio categoriaRepositorio, IMapper mapper, ILogger logger)
+        public CategoriaAplicacao(ICategoriaRepositorio categoriaRepositorio, IMapper mapper)
         {
             _categoriaRepositorio = categoriaRepositorio;
             _mapper = mapper;
-            _logger = logger;
         }
 
         public List<Categoria> ObterTodas()
@@ -28,7 +26,6 @@ namespace SabadinEstoqueApi.Aplicacao
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, ex.Message);
                 return new List<Categoria>();
             }
         }
@@ -41,7 +38,6 @@ namespace SabadinEstoqueApi.Aplicacao
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, ex.Message);
                 return new ResultadoOperacao
                 {
                     Mensagem = $"Nao foi possivel cadastrar a categoria.",
@@ -58,16 +54,10 @@ namespace SabadinEstoqueApi.Aplicacao
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, ex.Message);
                 return new ResultadoOperacao<Categoria>
-                {
-                    Mensagem = "Ocoreu um erro ao atualizar a categoria",
-                    Sucesso = false,
-                    ObjetoRetorno = null
-                };
             }
         }
-        public ResultadoOperacao Deletar(int idCategoria)
+        public Dominio.ResultadoOperacao Deletar(int idCategoria)
         {
             try
             {
@@ -76,12 +66,11 @@ namespace SabadinEstoqueApi.Aplicacao
                 if (categoria != null)
                     return _categoriaRepositorio.Deletar(categoria);
 
-                return new ResultadoOperacao { Mensagem = "Produto nao existente na base de dados.", Sucesso = false };
+                return new Dominio.ResultadoOperacao { Mensagem = "Produto nao existente na base de dados.", Sucesso = false };
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, ex.Message);
-                return new ResultadoOperacao
+                return new Dominio.ResultadoOperacao
                 {
                     Mensagem = $"Ocoreu um erro ao deletar a categoria.",
                     Sucesso = false,

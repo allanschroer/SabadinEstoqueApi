@@ -4,10 +4,10 @@ namespace SabadinEstoqueApi.Dominio
 {
     public interface IProdutoModeloRepositorio
     {
-        ResultadoOperacao Cadastrar(Produto produto);
+        void Cadastrar(Produto produto);
         List<Produto> ObterTodosOsProdutos();
         Produto BuscarPorId(int id);
-        ResultadoOperacao DeletarProduto(Produto produto);
+        void DeletarProduto(Produto produto);
         List<Produto> BuscarPorNome(string nome);
     }
 }

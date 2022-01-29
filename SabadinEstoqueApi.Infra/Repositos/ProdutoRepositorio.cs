@@ -15,18 +15,10 @@ namespace SabadinEstoqueApi.Infra
             _context = context;
         }
 
-        public ResultadoOperacao Cadastrar(Produto produto)
+        public void Cadastrar(Produto produto)
         {
-            try
-            {
-                _context.Produtos.Add(produto);
-                _context.SaveChanges();
-                return new ResultadoOperacao { Sucesso = true, Mensagem = $"{produto.Nome} inserido com sucesso." };
-            }
-            catch (Exception e)
-            {
-                return new ResultadoOperacao { Mensagem = e.Message, Sucesso = false };
-            }
+            _context.Produtos.Add(produto);
+            _context.SaveChanges();
         }
 
         public Produto BuscarPorId(int id)
@@ -39,15 +31,10 @@ namespace SabadinEstoqueApi.Infra
             return _context.Produtos.Include(a => a.Categoria).ToList();
         }
 
-        public ResultadoOperacao DeletarProduto(Produto produto)
+        public void DeletarProduto(Produto produto)
         {
             _context.Produtos.Remove(produto);
             _context.SaveChanges();
-            return new ResultadoOperacao
-            {
-                Mensagem = "Removido com sucesso.",
-                Sucesso = true
-            };
         }
 
         public List<Produto> BuscarPorNome(string nome)
