@@ -18,15 +18,16 @@ namespace SabadinEstoqueApi.Aplicacao
             _mapper = mapper;
         }
 
-        public List<Categoria> ObterTodas()
+        public ResultadoOperacao<List<Categoria>> ObterTodas()
         {
             try
             {
-                return _categoriaRepositorio.ObterTodasAsCategorias().ToList();
+                var categorias = _categoriaRepositorio.ObterTodasAsCategorias().ToList();
+                return new ResultadoOperacao<List<Categoria>>().CriarSucesso(categorias);
             }
             catch (Exception ex)
             {
-                return new List<Categoria>();
+                return new ResultadoOperacao<List<Categoria>>().CriarFalha("Nao foi possivel obter as categorias.");
             }
         }
 
@@ -34,47 +35,44 @@ namespace SabadinEstoqueApi.Aplicacao
         {
             try
             {
-                return _categoriaRepositorio.Cadastrar(_mapper.Map<Categoria>(categoriaModelo));
+                _categoriaRepositorio.Cadastrar(_mapper.Map<Categoria>(categoriaModelo));
+                return new ResultadoOperacao().CriarSucesso();
             }
             catch (Exception ex)
             {
-                return new ResultadoOperacao
-                {
-                    Mensagem = $"Nao foi possivel cadastrar a categoria.",
-                    Sucesso = false
-                };
+                return new ResultadoOperacao().CriarFalha("Nao foi possivel cadastrar a categoria.");
             }
         }
 
-        public ResultadoOperacao<Categoria> Atualizar(CategoriaModelo categoriaModelo)
+        public ResultadoOperacao Atualizar(CategoriaModelo categoriaModelo)
         {
             try
             {
-                return _categoriaRepositorio.Atualizar(_mapper.Map<Categoria>(categoriaModelo));
+                _categoriaRepositorio.Atualizar(_mapper.Map<Categoria>(categoriaModelo));
+                return new ResultadoOperacao().CriarSucesso();
             }
             catch (Exception ex)
             {
-                return new ResultadoOperacao<Categoria>
+                return new ResultadoOperacao().CriarFalha("Nao foi possivel atualizar o produto.");
             }
         }
-        public Dominio.ResultadoOperacao Deletar(int idCategoria)
+        public ResultadoOperacao Deletar(int idCategoria)
         {
             try
             {
                 var categoria = _categoriaRepositorio.BuscarPorId(idCategoria);
 
                 if (categoria != null)
-                    return _categoriaRepositorio.Deletar(categoria);
+                {
+                    _categoriaRepositorio.Deletar(categoria);
+                    return new ResultadoOperacao().CriarSucesso();
+                }
 
-                return new Dominio.ResultadoOperacao { Mensagem = "Produto nao existente na base de dados.", Sucesso = false };
+                return new ResultadoOperacao().CriarFalha("Produto nao existente na base de dados.");
             }
             catch (Exception ex)
             {
-                return new Dominio.ResultadoOperacao
-                {
-                    Mensagem = $"Ocoreu um erro ao deletar a categoria.",
-                    Sucesso = false,
-                };
+                return new ResultadoOperacao().CriarFalha("Ocoreu um erro ao deletar a categoria.");
             }
         }
     }

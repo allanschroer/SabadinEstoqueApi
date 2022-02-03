@@ -48,7 +48,7 @@ namespace SabadinEstoqueApi.Aplicacao
             };
         }
 
-        public ResultadoOperacao<T> CriarFalha(string mensagem)
+        public new ResultadoOperacao<T> CriarFalha(string mensagem)
         {
             return new ResultadoOperacao<T>
             {

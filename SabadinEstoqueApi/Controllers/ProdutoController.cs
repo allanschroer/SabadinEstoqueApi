@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SabadinEstoqueApi.Aplicacao;
-using SabadinEstoqueApi.Dominio;
 using System;
 using System.Collections.Generic;
 
@@ -21,15 +20,15 @@ namespace SabadinEstoqueApi.Controllers
             => Ok(_produtoAplicacao.CadastrarProduto(produtoModelo));
 
         [HttpGet("ObterProdutos")]
-        public List<Produto> ObterProdutos() 
+        public ResultadoOperacao<List<ProdutoModelo>> ObterProdutos() 
             => _produtoAplicacao.BuscarProdutos();
 
         [HttpGet("ObterPorId")]
-        public Aplicacao.ResultadoOperacao ObterPorId(int id)
+        public ResultadoOperacao ObterPorId(int id)
             => _produtoAplicacao.BuscarProdutoPorId(id);
 
-        [HttpGet("DeletarProduto")]
-        public Dominio.ResultadoOperacao DeletarProduto(int id)
+        [HttpDelete("DeletarProduto")]
+        public ResultadoOperacao DeletarProduto(int id)
             => _produtoAplicacao.DeletarProdutoPorId(id);
     }
 }

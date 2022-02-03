@@ -9,8 +9,9 @@ namespace SabadinEstoqueApi.Aplicacao
 {
     public interface ICategoriaAplicacao
     {
-        public List<Categoria> ObterTodas();
+        public ResultadoOperacao<List<Categoria>> ObterTodas();
         public ResultadoOperacao Cadastrar(CategoriaModelo categoriaModelo);
-        public ResultadoOperacao<Categoria> Atualizar(CategoriaModelo categoriaModelo);
+        public ResultadoOperacao Atualizar(CategoriaModelo categoriaModelo);
+        public ResultadoOperacao Deletar(int idCategoria);
     }
 }

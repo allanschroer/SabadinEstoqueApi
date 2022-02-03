@@ -19,7 +19,7 @@ namespace SabadinEstoqueApi.Controllers
             throw new ArgumentNullException(nameof(categoriaAplicacao));
 
         [HttpGet, Route("ObterTodas")]
-        public IEnumerable<Categoria> ObterCategorias() 
+        public ResultadoOperacao<List<Categoria>> ObterCategorias() 
             => _categoriaAplicacao.ObterTodas();
 
         [HttpPost, Route("Cadastrar")]
@@ -27,7 +27,7 @@ namespace SabadinEstoqueApi.Controllers
             => _categoriaAplicacao.Cadastrar(categoriaModelo);
 
         [HttpPost, Route("Atualizar")]
-        public ResultadoOperacao<Categoria> Atualizar(CategoriaModelo categoriaModelo)
+        public ResultadoOperacao Atualizar(CategoriaModelo categoriaModelo)
             => _categoriaAplicacao.Atualizar(categoriaModelo);
     }
 }
