@@ -8,86 +8,85 @@ namespace SabadinEstoqueApi.Infra.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Cliente",
+                name: "cliente",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Cpf = table.Column<string>(type: "text", nullable: true),
-                    Nome = table.Column<string>(type: "text", nullable: true),
-                    Telefone = table.Column<string>(type: "text", nullable: true)
+                    cpf = table.Column<string>(type: "text", nullable: true),
+                    nome = table.Column<string>(type: "text", nullable: true),
+                    telefone = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cliente", x => x.Id);
+                    table.PrimaryKey("PK_Cliente", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Vendas",
+                name: "vendas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Finalizador = table.Column<int>(type: "integer", nullable: false),
-                    QuatidadeParcelas = table.Column<int>(type: "integer", nullable: false),
-                    ClienteId = table.Column<int>(type: "integer", nullable: true)
+                    finalizador = table.Column<int>(type: "integer", nullable: false),
+                    quatidadeparcelas = table.Column<int>(type: "integer", nullable: false),
+                    idcliente = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vendas", x => x.Id);
+                    table.PrimaryKey("PK_Vendas", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Vendas_Cliente_ClienteId",
-                        column: x => x.ClienteId,
-                        principalTable: "Cliente",
-                        principalColumn: "Id",
+                        name: "FK_Vendas_Cliente_IdCliente",
+                        column: x => x.idcliente,
+                        principalTable: "cliente",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProdutoVenda",
+                name: "produtovenda",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    QuantidadeVenda = table.Column<int>(type: "integer", nullable: false),
-                    ValorFinal = table.Column<double>(type: "double precision", nullable: false),
-                    ValorBruto = table.Column<double>(type: "double precision", nullable: false),
-                    ValorDesconto = table.Column<double>(type: "double precision", nullable: false),
-                    IdProduto = table.Column<int>(type: "integer", nullable: false),
-                    ProdutoId = table.Column<int>(type: "integer", nullable: true),
-                    VendaId = table.Column<int>(type: "integer", nullable: true)
+                    quantidadevenda = table.Column<int>(type: "integer", nullable: false),
+                    valorfinal = table.Column<double>(type: "double precision", nullable: false),
+                    valorbruto = table.Column<double>(type: "double precision", nullable: false),
+                    valordesconto = table.Column<double>(type: "double precision", nullable: false),
+                    idproduto = table.Column<int>(type: "integer", nullable: false),
+                    idvenda = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProdutoVenda", x => x.Id);
+                    table.PrimaryKey("PK_ProdutoVenda", x => x.id);
                     table.ForeignKey(
                         name: "FK_ProdutoVenda_produtos_ProdutoId",
-                        column: x => x.ProdutoId,
+                        column: x => x.idproduto,
                         principalTable: "produtos",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ProdutoVenda_Vendas_VendaId",
-                        column: x => x.VendaId,
-                        principalTable: "Vendas",
-                        principalColumn: "Id",
+                        column: x => x.idvenda,
+                        principalTable: "vendas",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProdutoVenda_ProdutoId",
-                table: "ProdutoVenda",
-                column: "ProdutoId");
+                table: "produtovenda",
+                column: "idproduto");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProdutoVenda_VendaId",
-                table: "ProdutoVenda",
-                column: "VendaId");
+                table: "produtovenda",
+                column: "idvenda");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vendas_ClienteId",
-                table: "Vendas",
-                column: "ClienteId");
+                table: "vendas",
+                column: "idcliente");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
