@@ -27,5 +27,6 @@
 
   <ItemGroup>
     <Folder Include="Util\" />
+    <Folder Include="VendaFactory\Factories\" />
   </ItemGroup>
 </Project>

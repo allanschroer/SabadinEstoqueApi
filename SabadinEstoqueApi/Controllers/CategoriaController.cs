@@ -14,9 +14,8 @@ namespace SabadinEstoqueApi.Controllers
     {
         private readonly ICategoriaAplicacao _categoriaAplicacao;
 
-        public CategriaController(ICategoriaAplicacao categoriaAplicacao) 
-            => _categoriaAplicacao = categoriaAplicacao ??
-            throw new ArgumentNullException(nameof(categoriaAplicacao));
+        public CategriaController(ICategoriaAplicacao categoriaAplicacao)
+            => _categoriaAplicacao = categoriaAplicacao;
 
         [HttpGet, Route("ObterTodas")]
         public ResultadoOperacao<List<Categoria>> ObterCategorias() 

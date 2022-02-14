@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
 using SabadinEstoqueApi.Dominio;
 using System;
 using System.Collections.Generic;
