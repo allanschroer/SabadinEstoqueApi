@@ -8,6 +8,8 @@
         public double ValorBruto { get; set; }
         public double ValorDesconto { get; set; }
         public int IdProduto { get; set; }
+        public int IdVenda { get; set; }
         public virtual Produto Produto { get; set; }
+        public virtual Venda Venda { get; set; }
     }
 }

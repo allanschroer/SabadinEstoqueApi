@@ -116,6 +116,9 @@ namespace SabadinEstoqueApi.Infra.Migrations
                     b.Property<int>("IdProduto")
                         .HasColumnType("integer");
 
+                    b.Property<int>("IdVenda")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("ProdutoId")
                         .HasColumnType("integer");
 
@@ -156,6 +159,9 @@ namespace SabadinEstoqueApi.Infra.Migrations
                     b.Property<int>("Finalizador")
                         .HasColumnType("integer");
 
+                    b.Property<int>("IdCliente")
+                        .HasColumnType("integer");
+
                     b.Property<int>("QuatidadeParcelas")
                         .HasColumnType("integer");
 
@@ -183,11 +189,13 @@ namespace SabadinEstoqueApi.Infra.Migrations
                         .WithMany()
                         .HasForeignKey("ProdutoId");
 
-                    b.HasOne("SabadinEstoqueApi.Dominio.Venda", null)
+                    b.HasOne("SabadinEstoqueApi.Dominio.Venda", "Venda")
                         .WithMany("Produtos")
                         .HasForeignKey("VendaId");
 
                     b.Navigation("Produto");
+
+                    b.Navigation("Venda");
                 });
 
             modelBuilder.Entity("SabadinEstoqueApi.Dominio.Venda", b =>

@@ -1,13 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SabadinEstoqueApi.Dominio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SabadinEstoqueApi.Infra.Mapeamentos
+namespace SabadinEstoqueApi.Infra
 {
     public class ProdutoVendaMapeamento : IEntityTypeConfiguration<ProdutoVenda>
     {
@@ -23,6 +18,8 @@ namespace SabadinEstoqueApi.Infra.Mapeamentos
             builder.Property(a => a.ValorDesconto).HasColumnName("valordesconto").HasColumnType("decimal(18,2)");
             builder.Property(a => a.ValorFinal).HasColumnName("valorfinal").HasColumnType("decimal(18,2)");
             builder.Property(a => a.IdProduto).HasColumnName("Id").HasColumnType("int");
+
+            builder.HasOne(a => a.Venda).WithMany().HasForeignKey(a => a.IdVenda);
             builder.HasOne(a => a.Produto).WithMany().HasForeignKey(a => a.IdProduto);
         }
     }
