@@ -1,6 +1,6 @@
 ﻿namespace SabadinEstoqueApi.Dominio
 {
-    public enum SituacaoEnum
+    public enum Situacao
     {
         Ativo = 0,
         Inativo = 1

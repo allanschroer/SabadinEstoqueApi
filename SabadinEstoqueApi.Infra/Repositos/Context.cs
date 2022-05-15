@@ -13,8 +13,10 @@ namespace SabadinEstoqueApi.Infra
         {
             modelBuilder.ApplyConfiguration(new ProdutoMapeamento());
             modelBuilder.ApplyConfiguration(new CategoriaMapeamento());
+            modelBuilder.ApplyConfiguration(new UsuarioMapeamento());
         }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }

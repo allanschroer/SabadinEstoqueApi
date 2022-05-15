@@ -48,7 +48,8 @@ namespace SabadinEstoqueApi.Aplicacao
         {
             try
             {
-                _categoriaRepositorio.Atualizar(_mapper.Map<Categoria>(categoriaModelo));
+                var categoria = _mapper.Map<Categoria>(categoriaModelo);
+                _categoriaRepositorio.Atualizar(categoria);
                 return new ResultadoOperacao().CriarSucesso();
             }
             catch (Exception ex)

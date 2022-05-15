@@ -16,7 +16,7 @@ namespace SabadinEstoqueApi.Infra
         public void Atualizar(Categoria categoria)
         {
             var consulta = _context.Categorias.Where(a => a.Id == categoria.Id).FirstOrDefault();
-            consulta.Atualizar(categoria.Nome, categoria.Situacao);
+            consulta.Atualizar(categoria.Nome, categoria.Situacao, categoria.IdUsuarioAtualizacao);
             _context.SaveChanges();
         }
 

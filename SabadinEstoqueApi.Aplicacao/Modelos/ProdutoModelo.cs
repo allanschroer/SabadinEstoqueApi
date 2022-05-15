@@ -14,7 +14,7 @@ namespace SabadinEstoqueApi.Aplicacao
         [Required(ErrorMessage = "Necessário informar o valor em promoção.")]
         public decimal ValorPromocao { get; set; }
         [Required(ErrorMessage = "Necessário infomar a situação do produto.")]
-        public SituacaoEnum Situacao { get; set; }
+        public Situacao Situacao { get; set; }
         [Required(ErrorMessage = "Necessário informar uma categoria para o produto.")]
         public int IdCategoria { get; set; }
     }

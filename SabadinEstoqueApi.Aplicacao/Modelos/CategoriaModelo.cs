@@ -9,6 +9,6 @@ namespace SabadinEstoqueApi.Aplicacao
         [Required(ErrorMessage = "Obrigatorio informar o nome.")]
         public string Nome { get; set; }
         [Required(ErrorMessage = "Obrigatorio informar a situação.")]
-        public SituacaoEnum Situacao { get; set; }
+        public Situacao Situacao { get; set; }
     }
 }
